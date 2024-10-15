@@ -17,3 +17,15 @@ ascending([_]).
 ascending([X,Y|T]) :-
     X < Y,
     ascending([Y|T]).
+% MODEL MATEMATIC
+% Vale(L):
+% descendent(x1,x2,...xn){
+%               true, []
+%               descendent(x2,...xm),x1>= x2
+%               ascendent(x2,....xn), altfel
+%               }
+% ascendent(x1,x2,...xn){
+%   ascendent(x2,...xn), x1 < x2
+%   fals, x1 > x2
+%   true, []
+%}
