@@ -24,3 +24,10 @@ sum_alternanta_helper([H|T], CurrentSum, Index, Length, FinalSum) :-
     NewIndex is Index + 1,
     sum_alternanta_helper(T, NewSum, NewIndex, Length, FinalSum).
 
+% Suma_alternata_h(x1 x2...xn,suma,index){
+% suma_alternata_h(x2....xn,suma+x1,index+1), index % 2 ==1
+% suma_alternata_h(x2...xn,suma-x1,index+1), index % 2 == 0
+%}
+% Suma_alternata(x1 x2 ... xn){
+%   Suma_alternata_h(x1 x2 ... xn, 0, 1)
+%}
