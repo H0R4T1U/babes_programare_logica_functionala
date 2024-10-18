@@ -1,27 +1,31 @@
-vale(L) :-
-    % Predicat din prolog care concateneaza liste
-    % cazul meu: D=> Lista descrescatoare este concatenata cu lista [M|U] creand lista initiala,
-    % [M|U] este lista crescatoara cu M cel mai mic element din descending
-    append(D, [M|U], L),
-    descending(D),
-    ascending([M|U]).
+% model de flux : (i)
+este_vale([_, _]) :- false.
 
-descending([]).
-descending([_]).
-descending([X,Y|T]) :-
-    X >= Y,
-    descending([Y|T]).
+este_vale([X,Y|Rest]) :-
+    X > Y,             
+    scade([Y|Rest]).   
 
-ascending([]). 
-ascending([_]).
-ascending([X,Y|T]) :-
-    X < Y,
-    ascending([Y|T]).
+scade([X, Y|Rest]) :-
+    X > Y,             
+    scade([Y|Rest]).   
+scade([X, Y|Rest]) :-
+    X < Y,             
+    creste([Y|Rest]). 
+
+creste([X, Y|Rest]) :-
+    X < Y,             
+    creste([Y|Rest]).
+creste([_]).
+creste([]).      
+
 % MODEL MATEMATIC
-% Vale(L):
+% este_vale(x1 x2 ...xn){
+%           false, n == 2
+%           scade(x1 x2 ...xn) daca x1 > x2
+%           false altfel
+%}
 % descendent(x1,x2,...xn){
-%               true, []
-%               descendent(x2,...xm),x1>= x2
+%               descendent(x2,...xm),x1 >= x2
 %               ascendent(x2,....xn), altfel
 %               }
 % ascendent(x1,x2,...xn){
@@ -29,3 +33,8 @@ ascending([X,Y|T]) :-
 %   fals, x1 > x2
 %   true, []
 %}
+% vale([10,8,6,8,10]) true
+% vale([10,6,8,10]) true
+% vale([1,2,3,4,5]) false
+% vale([10,8,10,8]) false
+% vale([5,4,3,2,1]) false
