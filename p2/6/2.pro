@@ -5,10 +5,12 @@
 
 
 % Model Matematic Recursiv
-% Dublare_prim_sublista(l1, l2 ... ln){}
+% Dublare_prim_sublista(l1, l2 ... ln){
 %  [], n == 0
-%  dublare_prim(l1) + dublare_prim_sublista(l2, ... ln), l1 este lista
-%  l1+ dublare_prim_sublista(l2,.... ln)
+%  dublare_prim(l1) (+) dublare_prim_sublista(l2, ... ln), l1 este lista si n > 1
+%  l1 (+) dublare_prim_sublista(l2,.... ln),  l1 nu este lista si n > 1
+%  dublare_prim(l1), l1 este lista si n = 1
+%  l1, l1 nu este lista si n = 1
 %}
 %
 % Este_prim(N,k){
@@ -18,11 +20,12 @@
 %   Este_prim(n,k+1), altfel, k*k < nx
 %}
 %
-% Dublare_prim(l1 l2 ... ln){
+% Dublare_prim(l1 l2 ... ln):
 %   multimea_vida, n ==0
-%   l1 + l1 + Dublare_prim(l2 ... ln), Este_prim(l1,k) se aplica si la n==1
-%   l1 + Dublare_prim(l2 ... ln), altfel, ! este_prim(l1,k)
-%}
+%   l1 (+) l1 (+) Dublare_prim(l2 ... ln), Este_prim(l1,2) si n > 1
+%   l1 (+) Dublare_prim(l2 ... ln), altfel, ! este_prim(l1,2) si n >1
+%   l1 (+) l1, este_prim(l1,2) si n = 1
+%   l1, altfel, !este_prim(l1,2) si n = 1
 
 
 
@@ -64,13 +67,17 @@ dublare_prim([H1,H2|T],Rez):-% caz general daca nu este prim
 %dublare_prim_sublista(Lista:list,Rez:list)
 %Model de flux(i,o)
 %Lista: lista initiala
-% Rez: lista dupa dublarea tuturor nr prime din sublistet
+% Rez: lista dupa dublarea tuturor nr prime din subliste
+
+%TESTE
+%dublare_prim_sublista([1, [2, 3], 4, 5, [1, 4, 6], 3, [1, 3, 7, 9, 10], 5],Rez) =>
+%Rez=[1, [2, 2, 3, 3], 4, 5, [1, 4, 6], 3, [1, 3, 3, 7, 7, 9, 10], 5]
 dublare_prim_sublista([],[]). % Caz lista goala
 dublare_prim_sublista([H1],Rez):- % Cazul in care mai este un singur element si este lista
     is_list(H1),
     dublare_prim(H1,L_dublat),
     Rez = [L_dublat].
-dublare_prim_sublista([H1],Rez):- % daca nu este lista
+dublare_prim_sublista([H1],Rez):- % cazul in care mai este un singur element si nu este lista
     \+ is_list(H1),
     Rez = [H1].
 dublare_prim_sublista([H1,H2|T],Rez):-
@@ -81,4 +88,4 @@ dublare_prim_sublista([H1,H2|T],Rez):-
 dublare_prim_sublista([H1,H2|T],Rez):-
     \+ is_list(H1), % daca nu este o lista
     dublare_prim_sublista([H2|T],Rez1), % mergem in adancime
-    Rez = [H1 | Rez1]. % adaugam elementul in fata celor care vin din adancime
+    Rez = [H1 | Rez1]. % adaugam elementul in fata celor care vin din adancime1
